@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Icon Generator</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:system-ui;padding:16px}
+canvas{max-width:100%;border:1px solid #334155;margin:8px 0;background:#000}
+a{display:block;margin:6px 0;padding:14px;background:#F59E0B;color:#0F172A;font-weight:700;border-radius:10px;text-align:center;text-decoration:none}
+</style></head><body>
+<h2>Tap each button, then save the image to Files</h2>
+<p>Save into the <code>icons/</code> folder in your repo with the exact filename shown.</p>
+<div id="out"></div>
+<script>
+function draw(w, h, og){
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const x = c.getContext('2d');
+  const g = x.createLinearGradient(0,0,w,h); g.addColorStop(0,'#0F172A'); g.addColorStop(1,'#1E293B');
+  x.fillStyle = g; x.fillRect(0,0,w,h);
+  const s = og ? h*0.55 : w*0.6, cx = og ? w*0.22 : w/2, cy = h/2;
+  x.strokeStyle = '#F59E0B'; x.lineWidth = s*0.06;
+  x.beginPath(); x.arc(cx, cy, s/2, 0, Math.PI*2); x.stroke();
+  x.fillStyle = '#F59E0B'; x.beginPath();
+  x.moveTo(cx+s*.08, cy-s*.34); x.lineTo(cx-s*.18, cy+s*.04); x.lineTo(cx-s*.02, cy+s*.04);
+  x.lineTo(cx-s*.08, cy+s*.34); x.lineTo(cx+s*.18, cy-s*.06); x.lineTo(cx+s*.02, cy-s*.06); x.fill();
+  x.fillStyle = '#10B981'; x.beginPath(); x.arc(cx+s*.38, cy-s*.38, s*.06, 0, 7); x.fill();
+  if(og){
+    x.fillStyle = '#fff'; x.font = `bold ${h*.1}px system-ui`;
+    x.fillText('SCADA Engineer', w*.40, h*.42);
+    x.fillStyle = '#F59E0B'; x.fillText('Indian-to-English Guide', w*.40, h*.56);
+    x.fillStyle = '#06B6D4'; x.font = `${h*.05}px system-ui`;
+    x.fillText('PLC · DCS · RTU · Modbus · FAT/SAT', w*.40, h*.68);
+  }
+  return c;
+}
+[['icon-192.png',192,192],['icon-512.png',512,512],['favicon.png',64,64],['og-image.png',1200,630]].forEach(([n,w,h])=>{
+  const c = draw(w,h,n.startsWith('og'));
+  const a = document.createElement('a'); a.textContent = 'Download ' + n; a.download = n;
+  a.href = c.toDataURL('image/png');
+  document.getElementById('out').append(c, a);
+});
+</script></body></html>
