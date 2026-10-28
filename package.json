@@ -1,0 +1,7 @@
+{
+  "name": "scada-english-guide",
+  "version": "1.0.0",
+  "description": "SCADA Engineer Indian-to-English Industrial Communication Guide (PWA)",
+  "scripts": { "start": "npx serve ." },
+  "license": "MIT"
+}
